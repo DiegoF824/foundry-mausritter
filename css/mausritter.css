@@ -1721,3 +1721,212 @@
   color: #ff7f6d !important;
   border-color: #ff7f6d !important;
 }
+
+/* Theme reconciliation. These final rules let an individual sheet set to Light
+   remain light even when the Foundry application theme is dark. */
+.application.mausritter {
+  --maus-bg: #f6f3ed;
+  --maus-panel: #fff;
+  --maus-panel-muted: #ddd;
+  --maus-panel-soft: #e6e6e6;
+  --maus-text: rgb(22, 22, 22);
+  --maus-muted: grey;
+  --maus-border: rgb(22, 22, 22);
+  --maus-accent: rgb(22, 22, 22);
+  --maus-label-bg: rgb(22, 22, 22);
+  --maus-label-text: #fff;
+  --maus-field-bg: rgb(230, 230, 230);
+  --maus-chat-bg: #fff;
+  --maus-damage: rgb(117, 0, 0);
+  --maus-card-image-filter: none;
+  --maus-card-image-opacity: 1;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:not(.theme-light):not([data-theme="light"]):not([data-application-theme="light"]),
+.application.mausritter:is(.theme-dark, [data-theme="dark"], [data-application-theme="dark"]) {
+  --maus-bg: #191715;
+  --maus-panel: #24211d;
+  --maus-panel-muted: #37312a;
+  --maus-panel-soft: #2c2924;
+  --maus-text: #f2e7d2;
+  --maus-muted: #b7aa94;
+  --maus-border: #b89d6d;
+  --maus-accent: #f0c56f;
+  --maus-label-bg: #0f0d0b;
+  --maus-label-text: #f2e7d2;
+  --maus-field-bg: #24211d;
+  --maus-chat-bg: #191715;
+  --maus-damage: #ff7f6d;
+  --maus-card-image-filter: none;
+  --maus-card-image-opacity: 0.9;
+}
+
+.application.mausritter .window-content,
+.application.mausritter form,
+.application.mausritter .sheet-body,
+.application.mausritter .sheet-body .tab,
+.application.mausritter .sheet-body .tab .editor,
+.application.mausritter .editor,
+.application.mausritter .editor-content,
+.application.mausritter .tox .tox-editor-container,
+.application.mausritter .tox .tox-edit-area,
+.application.mausritter .tox .tox-edit-area__iframe,
+.application.mausritter .tox .tox-toolbar,
+.application.mausritter .tox .tox-toolbar__primary {
+  background: var(--maus-bg) !important;
+  color: var(--maus-text) !important;
+}
+
+.application.mausritter,
+.application.mausritter label,
+.application.mausritter .resource-label,
+.application.mausritter .item-control,
+.application.mausritter .item-controls a,
+.application.mausritter .tab-select,
+.application.mausritter .tabs .item,
+.application.mausritter .headerinputtext,
+.application.mausritter .headerinputfield,
+.application.mausritter .minmaxtext,
+.application.mausritter .littleLabel,
+.application.mausritter .bigLabel,
+.application.mausritter .darkGreyText,
+.application.mausritter .item-card-header,
+.application.mausritter .item-card-header-noborder,
+.application.mausritter .item-card-title,
+.application.mausritter .item-card-tag,
+.application.mausritter .item-card-desc,
+.application.mausritter .item-card-clear,
+.application.mausritter .item-card-clear-text,
+.application.mausritter .item-card-chat,
+.application.mausritter .rollh2,
+.application.mausritter .rollattribute,
+.application.mausritter .roll-target,
+.application.mausritter .roll-result,
+.application.mausritter .roll-targetbox {
+  color: var(--maus-text) !important;
+}
+
+.application.mausritter .current-max-label,
+.application.mausritter .greyText,
+.application.mausritter .item-bag-text,
+.application.mausritter .item-slot-header,
+.application.mausritter .item-slot-footer,
+.application.mausritter .rollmods {
+  color: var(--maus-muted) !important;
+}
+
+.application.mausritter input,
+.application.mausritter textarea,
+.application.mausritter select {
+  color: var(--maus-text) !important;
+  border-color: var(--maus-border) !important;
+}
+
+.application.mausritter .noborder,
+.application.mausritter .minmax-input,
+.application.mausritter input.noborder,
+.application.mausritter input.minmax-input {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.application.mausritter .sheet-header-maus .item-text,
+.application.mausritter .textarea-input,
+.application.mausritter .circle-input,
+.application.mausritter .smallcircle-input,
+.application.mausritter .square-input,
+.application.mausritter .mainstatmod-input,
+.application.mausritter .item-card-field,
+.application.mausritter .item-card-field-container {
+  background: var(--maus-field-bg) !important;
+  color: var(--maus-text) !important;
+  border-color: var(--maus-border) !important;
+}
+
+.application.mausritter .header-border,
+.application.mausritter .creature-header-border,
+.application.mausritter .blockborder,
+.application.mausritter .blockborder-mini,
+.application.mausritter .minmaxwrapper,
+.application.mausritter .minmax-wrapper-noborder,
+.application.mausritter .valuewrapper {
+  background: linear-gradient(90deg, var(--maus-panel-muted) 0%, var(--maus-panel-muted) 34%, var(--maus-panel) 20%, var(--maus-panel) 100%) !important;
+  border-color: var(--maus-border) !important;
+}
+
+.application.mausritter .creature-header,
+.application.mausritter .creature-header-grid,
+.application.mausritter .stresslabel,
+.application.mausritter .mainstatlabel,
+.application.mausritter .savebackground,
+.application.mausritter .rollweaponh1 {
+  background: var(--maus-label-bg) !important;
+  color: var(--maus-label-text) !important;
+}
+
+.application.mausritter .portrait,
+.application.mausritter .portrait-creature,
+.application.mausritter .item-img,
+.application.mausritter .item-container,
+.application.mausritter .item-card {
+  background: var(--maus-panel) !important;
+  border-color: var(--maus-border) !important;
+  color: var(--maus-text) !important;
+}
+
+.application.mausritter .item-bag-container,
+.application.mausritter .item-slot-dashed,
+.application.mausritter .tabs,
+.application.mausritter .seperatorLine,
+.application.mausritter .slant,
+.application.mausritter .items-list .item,
+.application.mausritter .whiteline,
+.application.mausritter .rollh1,
+.application.mausritter .roll-target,
+.application.mausritter .roll-result,
+.application.mausritter .roll-targetbox {
+  border-color: var(--maus-border) !important;
+}
+
+.application.mausritter .item-card-image {
+  background: transparent !important;
+  filter: var(--maus-card-image-filter) !important;
+  opacity: var(--maus-card-image-opacity) !important;
+}
+
+.application.mausritter .item-card-damage,
+.application.mausritter .roll-damage,
+.application.mausritter .roll-damagebox {
+  color: var(--maus-damage) !important;
+  border-color: var(--maus-damage) !important;
+}
+
+.application.mausritter .fa-circle {
+  color: var(--maus-text) !important;
+  background: transparent !important;
+}
+
+.application.mausritter .fa-trash,
+.application.mausritter .fa-edit,
+.application.mausritter .fa-sync-alt,
+.application.mausritter .fa-plus {
+  color: var(--maus-accent) !important;
+}
+
+.application.mausritter .rollh1,
+.application.mausritter .rollh2,
+.application.mausritter .rollattribute,
+.application.mausritter .roll-target,
+.application.mausritter .roll-result,
+.application.mausritter .roll-targetbox {
+  background: var(--maus-panel) !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .chat-message .mausritter,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .message-content .mausritter,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .chat-message .mausritter .rollcontainer,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .message-content .mausritter .rollcontainer {
+  background: #191715 !important;
+  color: #f2e7d2 !important;
+  border-color: #b89d6d !important;
+}

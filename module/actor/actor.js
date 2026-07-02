@@ -444,7 +444,7 @@ export class MausritterActor extends Actor {
       };
 
       for (let i = 0; i < diceRoll.terms.length; i++) {
-        if (diceRoll.terms[i] instanceof Die) {
+        if (diceRoll.terms[i] instanceof foundry.dice.terms.Die) {
           let pool = diceRoll.terms[i].results;
           let faces = diceRoll.terms[i].faces;
 

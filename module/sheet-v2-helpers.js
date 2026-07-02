@@ -63,17 +63,21 @@ function activateTabs(element, initial) {
 
 function applyDocumentSheetTheme(sheet) {
   const root = sheet.element instanceof HTMLElement ? sheet.element : sheet.element[0];
-  const theme = foundry.applications.apps.DocumentSheetConfig.getSheetThemeForDocument(sheet.document);
-  const normalized = theme?.toLowerCase?.() ?? "";
+  const frame = root.closest(".application") ?? root;
+  const apiTheme = foundry.applications.apps.DocumentSheetConfig.getSheetThemeForDocument(sheet.document);
+  const flagTheme = sheet.document.getFlag?.("core", "sheetTheme") ?? sheet.document.flags?.core?.sheetTheme;
+  const normalized = String(apiTheme || flagTheme || "").toLowerCase();
 
-  root.classList.remove("theme-light", "theme-dark", "maus-theme-light", "maus-theme-dark");
-  delete root.dataset.applicationTheme;
-  delete root.dataset.mausTheme;
+  for (const element of new Set([root, frame])) {
+    element.classList.remove("theme-light", "theme-dark", "maus-theme-light", "maus-theme-dark");
+    delete element.dataset.applicationTheme;
+    delete element.dataset.mausTheme;
 
-  if (normalized === "light" || normalized === "dark") {
-    root.classList.add(`theme-${normalized}`, `maus-theme-${normalized}`);
-    root.dataset.applicationTheme = normalized;
-    root.dataset.mausTheme = normalized;
+    if (normalized === "light" || normalized === "dark") {
+      element.classList.add(`theme-${normalized}`, `maus-theme-${normalized}`);
+      element.dataset.applicationTheme = normalized;
+      element.dataset.mausTheme = normalized;
+    }
   }
 }
 

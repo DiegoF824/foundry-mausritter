@@ -1529,3 +1529,195 @@
 .mausritter .sheet-header-maus .resource-label:lang(cs) {
   font-size: 0.85em;
 }
+
+/* Foundry dark application theme */
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter .window-content,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter form {
+  background: #191715 !important;
+  color: #f2e7d2 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter {
+  color: #f2e7d2 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter input,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter textarea,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter select {
+  background: #24211d !important;
+  color: #f2e7d2 !important;
+  border-color: #b89d6d !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter input::placeholder,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter textarea::placeholder {
+  color: #a9977a !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter label,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .resource-label,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-control,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-controls a,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tab-select,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tabs .item,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .headerinputtext,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .headerinputfield,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .minmaxtext,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .littleLabel,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .bigLabel,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .darkGreyText {
+  color: #f2e7d2 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .current-max-label,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .greyText,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-bag-text,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-slot-header,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-slot-footer,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .rollmods {
+  color: #b7aa94 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .sheet-body,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .sheet-body .tab,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .sheet-body .tab .editor,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .editor,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .editor-content,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tox .tox-editor-container,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tox .tox-edit-area,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tox .tox-edit-area__iframe,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tox .tox-toolbar,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tox .tox-toolbar__primary {
+  background: #191715 !important;
+  color: #f2e7d2 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .header-border,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .creature-header-border,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .blockborder,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .blockborder-mini,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .minmaxwrapper,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .minmax-wrapper-noborder,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .valuewrapper {
+  background: linear-gradient(90deg, #37312a 0%, #37312a 34%, #24211d 20%, #24211d 100%) !important;
+  border-color: #b89d6d !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .creature-header,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .creature-header-grid,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .stresslabel,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .mainstatlabel,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .savebackground {
+  background: #0f0d0b !important;
+  color: #f2e7d2 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .portrait,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .portrait-creature,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-img {
+  background: #24211d !important;
+  border-color: #b89d6d !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .portrait img,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .portrait-creature img {
+  filter: brightness(0.82) sepia(0.12);
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-container {
+  background: #24211d !important;
+  border: 1px solid #5e4f37;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-bag-container,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-slot-dashed {
+  border-color: #8e806a !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card {
+  background: #2c2924 !important;
+  border-color: #d2b989 !important;
+  color: #f2e7d2 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-header,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-header-noborder,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-title,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-tag,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-desc,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-clear,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-clear-text,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-chat {
+  background: transparent !important;
+  color: #f2e7d2 !important;
+  border-color: #d2b989 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-damage,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-field-container,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-field {
+  background: #191715 !important;
+  color: #f2e7d2 !important;
+  border-color: #d2b989 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .item-card-image {
+  filter: invert(1) sepia(0.35) saturate(0.8) brightness(1.06);
+  opacity: 0.82;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .fa-circle {
+  color: #f2e7d2 !important;
+  background: transparent !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .fa-trash,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .fa-edit,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .fa-sync-alt,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .fa-plus {
+  color: #f0c56f !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .tabs,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .seperatorLine,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .slant,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .items-list .item,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .whiteline {
+  border-color: #b89d6d !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .chat-message .mausritter,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .message-content .mausritter,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .chat-message .mausritter .rollcontainer,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .message-content .mausritter .rollcontainer {
+  background: #191715 !important;
+  color: #f2e7d2 !important;
+  border-color: #b89d6d !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .rollh1 {
+  background: #37312a !important;
+  color: #f2e7d2 !important;
+  border-color: #b89d6d !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .rollweaponh1 {
+  background: #0f0d0b !important;
+  color: #f2e7d2 !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .rollh2,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .rollattribute,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .roll-target,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .roll-result,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .roll-targetbox {
+  background: #24211d !important;
+  color: #f2e7d2 !important;
+  border-color: #b89d6d !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .roll-damage,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .mausritter .roll-damagebox {
+  color: #ff7f6d !important;
+  border-color: #ff7f6d !important;
+}

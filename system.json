@@ -2,7 +2,7 @@
   "title": "Mausritter",
   "type": "system",
   "description": "The unofficial Mausritter system for FoundryVTT.",
-  "version": "0.3.27",
+  "version": "1.0",
   "esmodules": [
     "module/mausritter.js"
   ],
@@ -157,8 +157,8 @@
   },
   "primaryTokenAttribute": "health",
   "url": "https://github.com/DiegoF824/foundry-mausritter",
-  "manifest": "https://raw.githubusercontent.com/DiegoF824/foundry-mausritter/v14/system.json",
-  "download": "https://github.com/DiegoF824/foundry-mausritter/archive/refs/heads/v14.zip",
+  "manifest": "https://raw.githubusercontent.com/DiegoF824/foundry-mausritter/v14+dark/system.json",
+  "download": "https://github.com/DiegoF824/foundry-mausritter/archive/refs/heads/v14+dark.zip",
   "license": "LICENSE.txt",
   "id": "mausritter",
   "authors": [

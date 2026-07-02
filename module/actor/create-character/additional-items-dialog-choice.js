@@ -1,22 +1,16 @@
 export async function showAdditionalItemsChoiceDialog(items, callback) {
     const template = 'systems/mausritter/templates/dialogs/additional-item-choice.html';
-    const html = await renderTemplate(template, {items: items})
-    const d = new foundry.appv1.api.Dialog({
-        title: "Additional starting items",
+    const html = await foundry.applications.handlebars.renderTemplate(template, {items: items})
+    const selectedIndex = await foundry.applications.api.DialogV2.wait({
+        window: { title: "Additional starting items" },
         content: html,
-        buttons: {
-            ok: {
-                icon: '<i class="fas fa-check"></i>',
-                label: 'ok',
-                callback: (html) => {
-                    const selector = html[0].querySelector('select');
-                    callback(selector.selectedIndex)
-                }
-            }
-        },
-        default: "ok",
-        close: () => {
-        }
+        buttons: [{
+            action: "ok",
+            label: 'ok',
+            default: true,
+            callback: (event, button) => button.form.elements.items.selectedIndex
+        }],
+        rejectClose: false
     });
-    d.render(true);
+    if (selectedIndex !== null) callback(selectedIndex);
 }

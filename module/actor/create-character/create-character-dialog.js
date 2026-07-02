@@ -1,30 +1,11 @@
 export async function showCreateCharacterDialog(callback) {
     const template = 'systems/mausritter/templates/dialogs/create-character.html';
-    const html = await renderTemplate(template)
-    const d = new foundry.appv1.api.Dialog({
-        title: "What do you want to create?",
+    const html = await foundry.applications.handlebars.renderTemplate(template)
+    const options = await foundry.applications.api.DialogV2.input({
+        window: { title: "What do you want to create?" },
         content: html,
-        buttons: {
-            roll: {
-                icon: '<i class="fas fa-check"></i>',
-                label: 'ok',
-                callback: (html) => {
-                    const formElement = html[0].querySelector('fieldset');
-                    const formData = new FormDataExtended(formElement);
-                    const options = formData.object;
-                    callback(options)
-                }
-            },
-            cancel: {
-                icon: '<i class="fas fa-times"></i>',
-                label: game.i18n.localize('Maus.Cancel'),
-                callback: () => {
-                }
-            }
-        },
-        default: "roll",
-        close: () => {
-        }
+        ok: { label: 'ok' },
+        rejectClose: false
     });
-    d.render(true);
+    if (options) callback(options);
 }

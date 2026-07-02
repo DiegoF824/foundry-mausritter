@@ -39,34 +39,22 @@ export class MausritterActor extends Actor {
   }
 
 
-  rollStatSelect(statList) {
+  async rollStatSelect(statList) {
 
     let selectList = "";
 
     statList.forEach(stat => selectList += "<option value='" + stat[0] + "'>" + game.i18n.localize('Maus.'+stat[1].label) + "</option>")
 
-    let d = new foundry.appv1.api.Dialog({
-      title: game.i18n.localize('Maus.RollSelectType'),
+    const formData = await foundry.applications.api.DialogV2.input({
+      window: { title: game.i18n.localize('Maus.RollSelectType') },
       content: "<h2>" + game.i18n.localize('Maus.RollSelectStat') + "</h2> <select style='margin-bottom:10px;'name='stat' id='stat'> " + selectList + "</select> <br/>",
-      buttons: {
-        roll: {
-          icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize('Maus.Roll'),
-          callback: (html) => this.rollStat(this.system.stats[html.find('[id=\"stat\"]')[0].value])
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('Maus.Cancel'),
-          callback: () => { }
-        }
-      },
-      default: "roll",
-      close: () => { }
+      ok: { label: game.i18n.localize('Maus.Roll') },
+      rejectClose: false
     });
-    d.render(true);
+    if (formData) return this.rollStat(this.system.stats[formData.stat]);
   }
 
-  rollStat(attribute) {
+  async rollStat(attribute) {
 
     let attLabel = attribute.label?.charAt(0).toUpperCase() + attribute.label?.toLowerCase().slice(1);
     if (!attribute.label && isNaN(attLabel))
@@ -74,54 +62,30 @@ export class MausritterActor extends Actor {
 
     //this.rollAttribute(attribute, "none");
 
-    let d = new foundry.appv1.api.Dialog({
-      title: game.i18n.localize('Maus.RollSelectType'),
+    const formData = await foundry.applications.api.DialogV2.input({
+      window: { title: game.i18n.localize('Maus.RollSelectType') },
       content: "<h2> "+game.i18n.localize('Maus.RollAdvantageDisadvantage')+ "</h2> <select style='margin-bottom:10px;'name='advantage' id='advantage'> <option value='none'>"+game.i18n.localize('Maus.RollNone')+"</option> <option value='advantage'>"+game.i18n.localize('Maus.RollAdvantageDisadvantage')+"</option></select> <br/>",
-      buttons: {
-        roll: {
-          icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize('Maus.Roll'),
-          callback: (html) => this.rollAttribute(attribute, html.find('[id=\"advantage\"]')[0].value)
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('Maus.Cancel'),
-          callback: () => { }
-        }
-      },
-      default: "roll",
-      close: () => { }
+      ok: { label: game.i18n.localize('Maus.Roll') },
+      rejectClose: false
     });
-    d.render(true);
+    if (formData) return this.rollAttribute(attribute, formData.advantage);
   }
 
-  rollItem(itemId, options = { event: null }) {
+  async rollItem(itemId, options = { event: null }) {
     let item = foundry.utils.duplicate(this.getEmbeddedDocument("Item", itemId));
 
     if(item.type == "weapon"){
             //Select the stat of the roll.
-      let t = new foundry.appv1.api.Dialog({
-        title: game.i18n.localize('Maus.RollSelectStat'),
+      const formData = await foundry.applications.api.DialogV2.input({
+        window: { title: game.i18n.localize('Maus.RollSelectStat') },
         content: "<h2> "+game.i18n.localize('Maus.RollEnhanced')+"/"+game.i18n.localize('Maus.RollImpaired')+" </h2> <select style='margin-bottom:10px;'name='enhanced' id='enhanced'>\
         <option value='normal'>"+game.i18n.localize('Maus.RollNormal')+"</option>\
         <option value='enhanced'>"+game.i18n.localize('Maus.RollEnhanced')+"</option>\
         <option value='impaired'>"+game.i18n.localize('Maus.RollImpaired')+"</option></select> <br/>",
-        buttons: {
-          roll: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('Maus.Roll'),
-            callback: (html) => this.rollWeapon(item, html.find('[id=\"enhanced\"]')[0].value)
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('Maus.Cancel'),
-            callback: () => { }
-          }
-        },
-        default: "roll",
-        close: () => { }
+        ok: { label: game.i18n.localize('Maus.Roll') },
+        rejectClose: false
       });
-      t.render(true);
+      if (formData) return this.rollWeapon(item, formData.enhanced);
       
       // if(item.system.weapon.selected == 0)
       //   this.rollWeapon(item, item.system.weapon.dmg1);
@@ -129,25 +93,13 @@ export class MausritterActor extends Actor {
       // this.rollWeapon(item, item.system.weapon.dmg2);
     } else if(item.type=="spell"){
       //Select the stat of the roll.
-      let t = new foundry.appv1.api.Dialog({
-        title: "Select Stat",
+      const formData = await foundry.applications.api.DialogV2.input({
+        window: { title: "Select Stat" },
         content: "<h2> "+game.i18n.localize('Maus.RollPowerDesc')+" </h2> <input style='margin-bottom:10px;' name='power' id='power' value='1'></input><br/>",
-        buttons: {
-          roll: {
-            icon: '<i class="fas fa-check"></i>',
-            label: game.i18n.localize('Maus.Roll'),
-            callback: (html) => this.rollSpell(item, html.find('[id=\"power\"]')[0].value)
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('Maus.Cancel'),
-            callback: () => { }
-          }
-        },
-        default: "roll",
-        close: () => { }
+        ok: { label: game.i18n.localize('Maus.Roll') },
+        rejectClose: false
       });
-      t.render(true);
+      if (formData) return this.rollSpell(item, formData.power);
     }
     else {
       this.chatDesc(item);
@@ -213,7 +165,7 @@ export class MausritterActor extends Actor {
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
 
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
       if (game.dice3d) {
         game.dice3d.showForRoll(damageRoll, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
@@ -309,7 +261,7 @@ export class MausritterActor extends Actor {
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
 
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
       if (game.dice3d) {
         game.dice3d.showForRoll(damageRoll, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
@@ -414,7 +366,7 @@ export class MausritterActor extends Actor {
             }
     */
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
       if (game.dice3d) {
         game.dice3d.showForRoll(r, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
@@ -549,7 +501,7 @@ export class MausritterActor extends Actor {
             }
     */
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
 
       ChatMessage.create(chatData);

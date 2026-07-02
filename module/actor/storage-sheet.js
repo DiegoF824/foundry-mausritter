@@ -173,33 +173,20 @@ export class MausritterStorageSheet extends foundry.appv1.sheets.ActorSheet {
 
 
         // Add Inventory Item
-        html.find('.item-create').click(ev => {
+        html.find('.item-create').click(async ev => {
 
             let creatableItems = ['item', 'weapon', 'spell', 'armor', 'condition', 'storage'];
             let selectList = "";
 
             creatableItems.forEach(type => selectList += "<option value='" + type + "'>" + type + "</option>")
 
-            //Select the stat of the roll.
-            let t = new foundry.appv1.api.Dialog({
-                title: "Select Stat",
+            const formData = await foundry.applications.api.DialogV2.input({
+                window: { title: "Select Stat" },
                 content: "<h2> Item Type </h2> <select style='margin-bottom:10px;'name='type' id='type'> " + selectList + "</select> <br/>",
-                buttons: {
-                    roll: {
-                        icon: '<i class="fas fa-check"></i>',
-                        label: "Create",
-                        callback: (html) => this._onItemCreate(ev, html.find('[id=\"type\"]')[0].value)
-                    },
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
-                        callback: () => { }
-                    }
-                },
-                default: "roll",
-                close: () => { }
+                ok: { label: "Create" },
+                rejectClose: false
             });
-            t.render(true);
+            if (formData) this._onItemCreate(ev, formData.type);
         });
 
         // Update Inventory Item

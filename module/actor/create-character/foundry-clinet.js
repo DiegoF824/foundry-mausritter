@@ -1,5 +1,5 @@
 export async function getItemFromFoundry(item_id) {
-    return await Item.fromDropData({
+    return await Item.implementation.fromDropData({
         type: "Item",
         uuid: item_id
     });
@@ -7,7 +7,7 @@ export async function getItemFromFoundry(item_id) {
 
 export async function addItem(itemId, instant, slot) {
     const item = await getItemFromFoundry(itemId);
-    const itemData = duplicate(item);
+    const itemData = item.toObject();
     if (slot) {
         itemData.system.sheet = slot
     }
@@ -15,8 +15,8 @@ export async function addItem(itemId, instant, slot) {
 }
 
 export async function attrRoll() {
-    var roll = await new Roll('3d6kh2').roll();
-    return await roll.total;
+    const roll = await new Roll('3d6kh2').evaluate();
+    return roll.total;
 }
 
 export async function drawFromTable(tableName) {

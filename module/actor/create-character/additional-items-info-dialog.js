@@ -1,7 +1,7 @@
 export async function showAdditionalItemsInfoDialog(items) {
     const template = 'systems/mausritter/templates/dialogs/additional-item-info.html';
     const html = await renderTemplate(template, {items: items})
-    const d = new Dialog({
+    const d = new foundry.appv1.api.Dialog({
         title: "Additional starting items",
         content: html,
         buttons: {

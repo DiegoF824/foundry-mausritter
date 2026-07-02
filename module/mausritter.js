@@ -53,7 +53,7 @@ Hooks.once('init', async function () {
   }
   
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
+  Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
 
   Actors.registerSheet("mausritter", MausritterActorSheet, {
     types: ['character'],
@@ -72,7 +72,7 @@ Hooks.once('init', async function () {
     makeDefault: false
   });
 
-  Items.unregisterSheet("core", ItemSheet);
+  Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
   Items.registerSheet("mausritter", MausritterItemSheet, { makeDefault: true });
 
   // If you need to add Handlebars helpers, here are a few useful examples:
@@ -101,29 +101,28 @@ Hooks.once('init', async function () {
 /**
  * Set default values for new actors' tokens
  */
- Hooks.on("preCreateActor", (document, createData, options, userId) => {
+Hooks.on("preCreateActor", (document, createData, options, userId) => {
   let disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
 
-  if (createData.type == "creature") {
+  if (document.type == "creature") {
     disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE
   }
 
-  // Set wounds, advantage, and display name visibility
-  mergeObject(createData,
-    {
-      "token.bar1": { "attribute": "health" },        // Default Bar 1 to Health 
-      "token.bar2": { "stat": "strength" },      // Default Bar 2 to Insanity
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,     // Default display name to be on owner hover
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,     // Default display bars to be on owner hover
-      "token.disposition": disposition,                               // Default disposition to neutral
-      "token.name": createData.name                                   // Set token name to actor name
-    })
+  const prototypeToken = {
+    bar1: { attribute: "health" },
+    bar2: { attribute: "stats.strength" },
+    displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    disposition,
+    name: document.name
+  };
 
-
-  if (createData.type == "character") {
-    createData.token.vision = true;
-    createData.token.actorLink = true;
+  if (document.type == "character") {
+    prototypeToken.vision = true;
+    prototypeToken.actorLink = true;
   }
+
+  document.updateSource({ prototypeToken });
 })
 
 // async function preloadHandlebarsTemplates() {
@@ -163,7 +162,7 @@ async function createMausritterMacro(dropData, slot) {
     return null;
   }
   
-  mergeObject(macroData, {
+  foundry.utils.mergeObject(macroData, {
     name: itemData.name,
     img: itemData.img,
     command: `game.mausritter.rollItemMacro("${itemData.name}")`,

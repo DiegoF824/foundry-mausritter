@@ -1,9 +1,9 @@
-export class DLCreatureSettings extends FormApplication {
+export class DLCreatureSettings extends foundry.appv1.api.FormApplication {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'sheet-modifiers';
         options.classes = ["mausritter", "sheet", "actor", "hireling"];
-        options.template = 'systems/mausritter/templates/dialogs/hireling-settings-dialog.html';
+        options.template = 'systems/mausritter/templates/dialogs/creature-settings-dialog.html';
         options.width = 320;
         options.height = 150;
         return options;
@@ -23,10 +23,11 @@ export class DLCreatureSettings extends FormApplication {
      * @return {Object}
      */
     getData() {
-        const actor = this.object.data;
+        const actor = this.object;
 
         return {
-            actor
+            actor,
+            system: actor.system
         };
     }
     /* -------------------------------------------- */
@@ -35,58 +36,58 @@ export class DLCreatureSettings extends FormApplication {
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.find(`input[type=checkbox][id="data.stats.combat.enabled"]`).click(ev => {
+        html.find(`input[type=checkbox][id="system.stats.combat.enabled"]`).click(ev => {
             if (ev.currentTarget.checked) {
-                const combat = html.find(`input[type=checkbox][id="data.stats.combat.enabled"]`).prop('checked', true);
+                const combat = html.find(`input[type=checkbox][id="system.stats.combat.enabled"]`).prop('checked', true);
             }
 
             this.object.update({
-                "data.stats.combat.enabled": ev.currentTarget.checked
+                "system.stats.combat.enabled": ev.currentTarget.checked
             });
         });
-        html.find(`input[type=checkbox][id="data.stats.instinct.enabled"]`).click(ev => {
+        html.find(`input[type=checkbox][id="system.stats.instinct.enabled"]`).click(ev => {
             if (ev.currentTarget.checked) {
-                const instinct = html.find(`input[type=checkbox][id="data.stats.instinct.enabled"]`).prop('checked', true);
+                const instinct = html.find(`input[type=checkbox][id="system.stats.instinct.enabled"]`).prop('checked', true);
             }
 
             this.object.update({
-                "data.stats.instinct.enabled": ev.currentTarget.checked
+                "system.stats.instinct.enabled": ev.currentTarget.checked
             });
         });
-        html.find(`input[type=checkbox][id="data.stats.loyalty.enabled"]`).click(ev => {
+        html.find(`input[type=checkbox][id="system.stats.loyalty.enabled"]`).click(ev => {
             if (ev.currentTarget.checked) {
-                const loyalty = html.find(`input[type=checkbox][id="data.stats.loyalty.enabled"]`).prop('checked', true);
+                const loyalty = html.find(`input[type=checkbox][id="system.stats.loyalty.enabled"]`).prop('checked', true);
             }
 
             this.object.update({
-                "data.stats.loyalty.enabled": ev.currentTarget.checked
+                "system.stats.loyalty.enabled": ev.currentTarget.checked
             });
         });
-        html.find(`input[type=checkbox][id="data.stats.speed.enabled"]`).click(ev => {
+        html.find(`input[type=checkbox][id="system.stats.speed.enabled"]`).click(ev => {
             if (ev.currentTarget.checked) {
-                const speed = html.find(`input[type=checkbox][id="data.stats.speed.enabled"]`).prop('checked', true);
+                const speed = html.find(`input[type=checkbox][id="system.stats.speed.enabled"]`).prop('checked', true);
             }
 
             this.object.update({
-                "data.stats.speed.enabled": ev.currentTarget.checked
+                "system.stats.speed.enabled": ev.currentTarget.checked
             });
         });
-        html.find(`input[type=checkbox][id="data.stats.armor.enabled"]`).click(ev => {
+        html.find(`input[type=checkbox][id="system.stats.armor.enabled"]`).click(ev => {
             if (ev.currentTarget.checked) {
-                const armor = html.find(`input[type=checkbox][id="data.stats.armor.enabled"]`).prop('checked', true);
+                const armor = html.find(`input[type=checkbox][id="system.stats.armor.enabled"]`).prop('checked', true);
             }
 
             this.object.update({
-                "data.stats.armor.enabled": ev.currentTarget.checked
+                "system.stats.armor.enabled": ev.currentTarget.checked
             });
         });
-        html.find(`input[type=checkbox][id="data.stats.sanity.enabled"]`).click(ev => {
+        html.find(`input[type=checkbox][id="system.stats.sanity.enabled"]`).click(ev => {
             if (ev.currentTarget.checked) {
-                const sanity = html.find(`input[type=checkbox][id="data.stats.sanity.enabled"]`).prop('checked', true);
+                const sanity = html.find(`input[type=checkbox][id="system.stats.sanity.enabled"]`).prop('checked', true);
             }
 
             this.object.update({
-                "data.stats.sanity.enabled": ev.currentTarget.checked
+                "system.stats.sanity.enabled": ev.currentTarget.checked
             });
         });
     }
@@ -101,30 +102,7 @@ export class DLCreatureSettings extends FormApplication {
 
         console.log("Updating Object");
 
-        // Loyalty
-        if (this.object.data.data.stats.loyalty.enabled) {
-            await this.object.update({
-                "data.stats.loyalty.enabled": true
-            });
-        }
-        // Speed
-        if (this.object.data.data.stats.speed.enabled) {
-            await this.object.update({
-                "data.stats.speed.enabled": true
-            });
-        }
-        // Armor
-        if (this.object.data.data.stats.armor.enabled) {
-            await this.object.update({
-                "data.stats.armor.enabled": true
-            });
-        }
-
-        await this.object.updateEmbeddedDocuments("Item", [update.toObject()]);
-
-        this.object.update({
-            formData
-        });
+        await this.object.update(foundry.utils.expandObject(formData));
         this.object.sheet.render(true);
     }
 }

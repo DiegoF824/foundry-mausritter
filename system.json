@@ -1,7 +1,8 @@
 {
   "title": "Mausritter",
+  "type": "system",
   "description": "The unofficial Mausritter system for FoundryVTT.",
-  "version": "0.3.21",
+  "version": "0.3.22",
   "esmodules": [
     "module/mausritter.js"
   ],
@@ -13,7 +14,7 @@
       "name": "weapons",
       "label": "Weapons",
       "system": "mausritter",
-      "path": "packs/weapons.db",
+      "path": "packs/weapons",
       "type": "Item",
       "flags": {},
       "ownership": {
@@ -25,7 +26,7 @@
       "name": "armor",
       "label": "Armor",
       "system": "mausritter",
-      "path": "packs/armor.db",
+      "path": "packs/armor",
       "type": "Item",
       "flags": {},
       "ownership": {
@@ -37,7 +38,7 @@
       "name": "gear",
       "label": "Gear",
       "system": "mausritter",
-      "path": "packs/gear.db",
+      "path": "packs/gear",
       "type": "Item",
       "flags": {},
       "ownership": {
@@ -49,7 +50,7 @@
       "name": "conditions",
       "label": "Conditions",
       "system": "mausritter",
-      "path": "packs/conditions.db",
+      "path": "packs/conditions",
       "type": "Item",
       "flags": {},
       "ownership": {
@@ -61,7 +62,7 @@
       "name": "spells",
       "label": "Spells",
       "system": "mausritter",
-      "path": "packs/spells.db",
+      "path": "packs/spells",
       "type": "Item",
       "flags": {},
       "ownership": {
@@ -73,7 +74,7 @@
       "name": "creatures",
       "label": "Creatures",
       "system": "mausritter",
-      "path": "packs/creatures.db",
+      "path": "packs/creatures",
       "type": "Actor",
       "flags": {},
       "ownership": {
@@ -85,7 +86,7 @@
       "name": "tables",
       "label": "Tables",
       "system": "mausritter",
-      "path": "packs/tables.db",
+      "path": "packs/tables",
       "type": "RollTable",
       "flags": {},
       "ownership": {
@@ -97,7 +98,7 @@
       "name": "mausritter-macros",
       "label": "Mausritter Macros",
       "system": "mausritter",
-      "path": "packs/mausritter-macros.db",
+      "path": "packs/mausritter-macros",
       "type": "Macro",
       "flags": {},
       "ownership": {
@@ -155,9 +156,9 @@
     "distance": 1
   },
   "primaryTokenAttribute": "health",
-  "url": "https://github.com/Futil/foundry-mausritter",
-  "manifest": "https://raw.githubusercontent.com/Futil/foundry-mausritter/v10/system.json",
-  "download": "https://github.com/Futil/foundry-mausritter/archive/v10.zip",
+  "url": "https://github.com/DiegoF824/foundry-mausritter",
+  "manifest": "https://raw.githubusercontent.com/DiegoF824/foundry-mausritter/v10/system.json",
+  "download": "https://github.com/DiegoF824/foundry-mausritter/archive/refs/heads/v10.zip",
   "license": "LICENSE.txt",
   "id": "mausritter",
   "authors": [
@@ -167,7 +168,7 @@
     }
   ],
   "compatibility": {
-    "minimum": "10",
-    "verified": "11"
+    "minimum": "14",
+    "verified": "14"
   }
 }

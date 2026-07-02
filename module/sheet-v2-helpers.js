@@ -61,6 +61,84 @@ function activateTabs(element, initial) {
   });
 }
 
+function activateItemCardPositioning(sheet) {
+  if (!sheet.isEditable) return;
+
+  const root = sheet.element instanceof HTMLElement ? sheet.element : sheet.element[0];
+  const cards = root.querySelectorAll(".item-card.dragItems.dropitem");
+  for (const card of cards) {
+    card.draggable = false;
+    card.addEventListener("pointerdown", event => startItemCardPositioning(sheet, card, event));
+  }
+}
+
+function startItemCardPositioning(sheet, card, event) {
+  if (event.button !== 0) return;
+  if (event.target.closest("a, button, input, textarea, select, .item-controls, .pip-button, .damage-swap, .item-roll")) {
+    return;
+  }
+
+  const itemId = card.dataset.itemId;
+  const dragArea = card.closest("#drag-area");
+  if (!itemId || !dragArea) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+  card.setPointerCapture?.(event.pointerId);
+  card.classList.add("dragging");
+
+  const areaRect = dragArea.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+  const offset = {
+    x: event.clientX - cardRect.left - cardRect.width / 2,
+    y: event.clientY - cardRect.top - cardRect.height / 2
+  };
+  let position = getItemCardPosition(event, areaRect, offset);
+
+  const onPointerMove = moveEvent => {
+    moveEvent.preventDefault();
+    position = getItemCardPosition(moveEvent, areaRect, offset);
+    card.style.transform = `translate3d(${position.x}px, ${position.y}px, 0)`;
+    card.style.zIndex = position.x + position.y + 1000;
+  };
+
+  const onPointerUp = async moveEvent => {
+    card.releasePointerCapture?.(event.pointerId);
+    card.classList.remove("dragging");
+    card.removeEventListener("pointermove", onPointerMove);
+    card.removeEventListener("pointerup", onPointerUp);
+    card.removeEventListener("pointercancel", onPointerUp);
+
+    const item = sheet.actor.getEmbeddedDocument("Item", itemId);
+    if (!item) return;
+
+    const itemData = item.toObject();
+    itemData.system.sheet = {
+      currentX: position.x,
+      currentY: position.y,
+      initialX: position.x,
+      initialY: position.y,
+      xOffset: position.x,
+      yOffset: position.y
+    };
+    await sheet.actor.updateEmbeddedDocuments("Item", [itemData]);
+  };
+
+  card.addEventListener("pointermove", onPointerMove);
+  card.addEventListener("pointerup", onPointerUp);
+  card.addEventListener("pointercancel", onPointerUp);
+}
+
+function getItemCardPosition(event, areaRect, offset) {
+  const roundScale = 5;
+  const x = event.clientX - areaRect.left - areaRect.width / 2 - offset.x;
+  const y = event.clientY - areaRect.top - areaRect.height / 2 - offset.y;
+  return {
+    x: Math.round(x / roundScale) * roundScale,
+    y: Math.round(y / roundScale) * roundScale
+  };
+}
+
 export class MausritterActorSheetV2 extends foundry.applications.sheets.ActorSheetV2 {
   static DEFAULT_OPTIONS = {
     actions: {},
@@ -112,6 +190,7 @@ export class MausritterActorSheetV2 extends foundry.applications.sheets.ActorShe
     await super._onRender(context, options);
     activateTabs(this.element, this.constructor.DEFAULT_OPTIONS.initialTab);
     this.activateListeners($(this.element));
+    activateItemCardPositioning(this);
   }
 
   async _onDropItemCreate(itemData) {

@@ -57,6 +57,26 @@
   color: rgb(22, 22, 22);
 }
 
+.application.mausritter .window-header,
+.application.mausritter .window-header a,
+.application.mausritter .window-header button,
+.application.mausritter .window-header i,
+.application.mausritter .window-header .header-control,
+.application.mausritter .window-header .header-button,
+.application.mausritter .window-header .window-title {
+  color: #f6f3ed;
+  opacity: 1;
+  text-shadow: none;
+}
+
+.application.mausritter .window-header a:hover,
+.application.mausritter .window-header button:hover,
+.application.mausritter .window-header .header-control:hover,
+.application.mausritter .window-header .header-button:hover {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.45);
+}
+
 .mausritter {
   color: rgb(22, 22, 22);
 }
@@ -1228,6 +1248,11 @@
   cursor: grab;
   pointer-events: auto;
   overflow: hidden;
+}
+
+.mausritter .item-card.dragging {
+  cursor: grabbing;
+  opacity: 0.92;
 }
 
 .mausritter .item-card-header {

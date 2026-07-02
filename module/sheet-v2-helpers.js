@@ -159,6 +159,49 @@ function getItemCardPosition(event, areaRect, offset) {
   };
 }
 
+function getSheetDocument(sheet) {
+  return sheet.document ?? sheet.actor ?? sheet.item ?? sheet.object;
+}
+
+function getFormFromEvent(sheet, event) {
+  if (event.currentTarget instanceof HTMLFormElement) return event.currentTarget;
+  if (event.target instanceof HTMLElement && event.target.form instanceof HTMLFormElement) return event.target.form;
+  return sheet.form ?? sheet.element?.querySelector?.("form") ?? null;
+}
+
+function getControlUpdateData(control) {
+  if (!control?.name || control.disabled) return null;
+  if (control.type === "radio" && !control.checked) return null;
+
+  let value = control.type === "checkbox" ? control.checked : control.value;
+  const dtype = control.dataset?.dtype;
+  if (dtype === "Number") value = value === "" ? null : Number(value);
+  else if (dtype === "Boolean") value = control.type === "checkbox" ? control.checked : value === "true";
+
+  return foundry.utils.expandObject({ [control.name]: value });
+}
+
+async function updateSheetFromForm(sheet, event, formData) {
+  const document = getSheetDocument(sheet);
+  const form = formData ? null : getFormFromEvent(sheet, event);
+  if (!document || (!formData && !form)) return;
+  const data = formData ?? new foundry.applications.ux.FormDataExtended(form);
+  const updateData = foundry.utils.expandObject(data.object);
+  return document.update(updateData, { diff: false });
+}
+
+async function updateSheetFromChangedControl(sheet, event) {
+  const control = event.target instanceof HTMLElement
+    ? event.target.closest("input[name], textarea[name], select[name]")
+    : null;
+  if (!control || control.classList.contains("item-input")) return;
+
+  const document = getSheetDocument(sheet);
+  const updateData = getControlUpdateData(control);
+  if (!document || !updateData) return;
+  return document.update(updateData, { diff: false });
+}
+
 export class MausritterActorSheetV2 extends foundry.applications.sheets.ActorSheetV2 {
   static DEFAULT_OPTIONS = {
     actions: {},
@@ -178,8 +221,7 @@ export class MausritterActorSheetV2 extends foundry.applications.sheets.ActorShe
   };
 
   static async onSubmitActorForm(event, form, formData) {
-    const updateData = foundry.utils.expandObject(formData.object);
-    return this.document.update(updateData, { diff: false });
+    return updateSheetFromForm(this, event, formData);
   }
 
   get template() {
@@ -214,6 +256,15 @@ export class MausritterActorSheetV2 extends foundry.applications.sheets.ActorShe
     activateItemCardPositioning(this);
   }
 
+  _onChangeForm(formConfig, event) {
+    if (formConfig.submitOnChange) return updateSheetFromChangedControl(this, event);
+    return super._onChangeForm(formConfig, event);
+  }
+
+  async _onSubmitForm(formConfig, event) {
+    return updateSheetFromForm(this, event);
+  }
+
   async _onDropItemCreate(itemData) {
     const items = Array.isArray(itemData) ? itemData : [itemData];
     return this.actor.createEmbeddedDocuments("Item", items);
@@ -241,8 +292,7 @@ export class MausritterItemSheetV2 extends foundry.applications.sheets.ItemSheet
   };
 
   static async onSubmitItemForm(event, form, formData) {
-    const updateData = foundry.utils.expandObject(formData.object);
-    return this.document.update(updateData, { diff: false });
+    return updateSheetFromForm(this, event, formData);
   }
 
   async _prepareContext(options) {
@@ -268,6 +318,15 @@ export class MausritterItemSheetV2 extends foundry.applications.sheets.ItemSheet
     applyDocumentSheetTheme(this);
     activateTabs(this.element, this.constructor.DEFAULT_OPTIONS.initialTab);
     this.activateListeners($(this.element));
+  }
+
+  _onChangeForm(formConfig, event) {
+    if (formConfig.submitOnChange) return updateSheetFromChangedControl(this, event);
+    return super._onChangeForm(formConfig, event);
+  }
+
+  async _onSubmitForm(formConfig, event) {
+    return updateSheetFromForm(this, event);
   }
 
   activateListeners(html) {}

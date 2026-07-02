@@ -2,7 +2,7 @@
   "title": "Mausritter",
   "type": "system",
   "description": "The unofficial Mausritter system for FoundryVTT.",
-  "version": "0.3.25",
+  "version": "0.3.26",
   "esmodules": [
     "module/mausritter.js"
   ],

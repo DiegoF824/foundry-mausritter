@@ -114,6 +114,11 @@ export class MausritterActorSheetV2 extends foundry.applications.sheets.ActorShe
     this.activateListeners($(this.element));
   }
 
+  async _onDropItemCreate(itemData) {
+    const items = Array.isArray(itemData) ? itemData : [itemData];
+    return this.actor.createEmbeddedDocuments("Item", items);
+  }
+
   activateListeners(html) {}
 }
 

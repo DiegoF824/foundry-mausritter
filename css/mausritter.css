@@ -51,6 +51,55 @@
   /* font-family: "Montserrat", "Arial Black", sans-serif; */
 }
 
+.application.mausritter .window-content,
+.application.mausritter form {
+  background: #f6f3ed;
+  color: rgb(22, 22, 22);
+}
+
+.mausritter {
+  color: rgb(22, 22, 22);
+}
+
+.mausritter input,
+.mausritter textarea,
+.mausritter select,
+.mausritter button {
+  color: rgb(22, 22, 22);
+}
+
+.mausritter input::placeholder,
+.mausritter textarea::placeholder {
+  color: rgb(92, 92, 92);
+  opacity: 1;
+}
+
+.mausritter label,
+.mausritter .resource-label,
+.mausritter .item-control,
+.mausritter .item-controls a {
+  color: rgb(22, 22, 22);
+}
+
+.mausritter .editor,
+.mausritter .editor-content,
+.mausritter .description,
+.mausritter .description .body {
+  color: rgb(22, 22, 22);
+}
+
+.chat-message .mausritter,
+.message-content .mausritter {
+  background: #fff;
+  color: rgb(22, 22, 22);
+}
+
+.chat-message .mausritter .rollcontainer,
+.message-content .mausritter .rollcontainer {
+  background: #fff;
+  color: rgb(22, 22, 22);
+}
+
 .mausritter ::-webkit-scrollbar-thumb {
   outline: none;
   border-radius: 3px;

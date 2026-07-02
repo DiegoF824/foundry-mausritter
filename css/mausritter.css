@@ -1393,7 +1393,7 @@
   bottom: 3px;
 }
 
-.mauxritter .item-card-field {
+.mausritter .item-card-field {
   position: absolute;
   text-align: left;
   left: 5px;
@@ -1998,6 +1998,32 @@
 .application.mausritter .roll-result,
 .application.mausritter .roll-targetbox {
   background: var(--maus-panel) !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-header,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-header-noborder,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-title,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-tag,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-desc,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-clear,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-clear-text,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-chat {
+  background: transparent !important;
+  color: rgb(22, 22, 22) !important;
+  border-color: rgb(22, 22, 22) !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-damage,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-field-container,
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card-field {
+  background: #fff !important;
+  color: rgb(22, 22, 22) !important;
+  border-color: rgb(22, 22, 22) !important;
+}
+
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:is(.theme-light, .maus-theme-light, [data-theme="light"], [data-application-theme="light"], [data-maus-theme="light"]) .item-card .fa-circle {
+  background: transparent !important;
+  color: rgb(22, 22, 22) !important;
 }
 
 :is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .chat-message .mausritter,

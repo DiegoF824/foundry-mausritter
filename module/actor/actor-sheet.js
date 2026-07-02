@@ -1,25 +1,25 @@
 /**
- * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
+ * Extend the basic ActorSheetV2 with some very simple modifications
+ * @extends {ActorSheetV2}
  */
-export class MausritterActorSheet extends foundry.appv1.sheets.ActorSheet {
+import { MausritterActorSheetV2 } from "../sheet-v2-helpers.js";
 
-    /** @override */
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ["mausritter", "sheet", "actor", "character"],
-            template: "systems/mausritter/templates/actor/actor-sheet.html",
+export class MausritterActorSheet extends MausritterActorSheetV2 {
+    static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
+        classes: ["mausritter", "sheet", "actor", "character"],
+        template: "systems/mausritter/templates/actor/actor-sheet.html",
+        initialTab: "drag",
+        position: {
             width: 742,
-            height: 800,
-            tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character"}]
-        });
-    }
+            height: 800
+        }
+    }, { inplace: false });
 
     /* -------------------------------------------- */
 
     /** @override */
-    getData() {
-        const data = super.getData();
+    getData(data) {
+        data = super.getData(data);
         data.dtypes = ["String", "Number", "Boolean"];
 
         const superData = data.data.system;
@@ -128,10 +128,8 @@ export class MausritterActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     /** @override */
     activateListeners(html) {
-        super.activateListeners(html);
-
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
+        if (!this.isEditable) return;
 
         // Update Inventory Item
         html.find('.item-equip').click(ev => {
@@ -164,14 +162,14 @@ export class MausritterActorSheet extends foundry.appv1.sheets.ActorSheet {
         html.find('.item-edit').click(ev => {
             const li = $(ev.currentTarget).parents(".item");
             const item = this.actor.getEmbeddedDocument("Item", li.data("itemId"));
-            item.sheet.render(true);
+            item.sheet.render({ force: true });
         });
 
         // Delete Inventory Item
         html.find('.item-delete').click(ev => {
             const li = $(ev.currentTarget).parents(".item");
             this.actor.deleteEmbeddedDocuments("Item", [li.data("itemId")]);
-            li.slideUp(200, () => this.render(false));
+            li.slideUp(200, () => this.render());
         });
 
         // Rotate Inventory Item

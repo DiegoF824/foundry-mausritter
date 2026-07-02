@@ -1,108 +1,69 @@
-export class DLCreatureSettings extends foundry.appv1.api.FormApplication {
-    static get defaultOptions() {
-        const options = super.defaultOptions;
-        options.id = 'sheet-modifiers';
-        options.classes = ["mausritter", "sheet", "actor", "hireling"];
-        options.template = 'systems/mausritter/templates/dialogs/creature-settings-dialog.html';
-        options.width = 320;
-        options.height = 150;
-        return options;
+export class DLCreatureSettings extends foundry.applications.api.ApplicationV2 {
+    static DEFAULT_OPTIONS = {
+        id: "sheet-modifiers",
+        classes: ["mausritter", "sheet", "actor", "hireling"],
+        position: {
+            width: 320,
+            height: 150
+        },
+        window: {
+            title: "Creature Settings"
+        }
+    };
+
+    constructor(object, options = {}) {
+        super(options);
+        this.object = object;
     }
-    /* -------------------------------------------- */
-    /**
-     * Add the Entity name into the window title
-     * @type {String}
-     */
+
     get title() {
         return `${this.object.name}: Creature Settings`;
     }
-    /* -------------------------------------------- */
 
-    /**
-     * Construct and return the data object used to render the HTML template for this form application.
-     * @return {Object}
-     */
-    getData() {
+    async _prepareContext(options) {
         const actor = this.object;
-
         return {
             actor,
-            system: actor.system
+            system: actor.system,
+            cssClass: "editable"
         };
     }
-    /* -------------------------------------------- */
 
-    /** @override */
-    activateListeners(html) {
-        super.activateListeners(html);
-
-        html.find(`input[type=checkbox][id="system.stats.combat.enabled"]`).click(ev => {
-            if (ev.currentTarget.checked) {
-                const combat = html.find(`input[type=checkbox][id="system.stats.combat.enabled"]`).prop('checked', true);
-            }
-
-            this.object.update({
-                "system.stats.combat.enabled": ev.currentTarget.checked
-            });
-        });
-        html.find(`input[type=checkbox][id="system.stats.instinct.enabled"]`).click(ev => {
-            if (ev.currentTarget.checked) {
-                const instinct = html.find(`input[type=checkbox][id="system.stats.instinct.enabled"]`).prop('checked', true);
-            }
-
-            this.object.update({
-                "system.stats.instinct.enabled": ev.currentTarget.checked
-            });
-        });
-        html.find(`input[type=checkbox][id="system.stats.loyalty.enabled"]`).click(ev => {
-            if (ev.currentTarget.checked) {
-                const loyalty = html.find(`input[type=checkbox][id="system.stats.loyalty.enabled"]`).prop('checked', true);
-            }
-
-            this.object.update({
-                "system.stats.loyalty.enabled": ev.currentTarget.checked
-            });
-        });
-        html.find(`input[type=checkbox][id="system.stats.speed.enabled"]`).click(ev => {
-            if (ev.currentTarget.checked) {
-                const speed = html.find(`input[type=checkbox][id="system.stats.speed.enabled"]`).prop('checked', true);
-            }
-
-            this.object.update({
-                "system.stats.speed.enabled": ev.currentTarget.checked
-            });
-        });
-        html.find(`input[type=checkbox][id="system.stats.armor.enabled"]`).click(ev => {
-            if (ev.currentTarget.checked) {
-                const armor = html.find(`input[type=checkbox][id="system.stats.armor.enabled"]`).prop('checked', true);
-            }
-
-            this.object.update({
-                "system.stats.armor.enabled": ev.currentTarget.checked
-            });
-        });
-        html.find(`input[type=checkbox][id="system.stats.sanity.enabled"]`).click(ev => {
-            if (ev.currentTarget.checked) {
-                const sanity = html.find(`input[type=checkbox][id="system.stats.sanity.enabled"]`).prop('checked', true);
-            }
-
-            this.object.update({
-                "system.stats.sanity.enabled": ev.currentTarget.checked
-            });
-        });
+    async _renderHTML(context, options) {
+        const html = await foundry.applications.handlebars.renderTemplate(
+            "systems/mausritter/templates/dialogs/creature-settings-dialog.html",
+            context
+        );
+        const template = document.createElement("template");
+        template.innerHTML = html.trim();
+        return template.content.firstElementChild;
     }
 
-    /**
-     * This method is called upon form submission after form data is validated
-     * @param event {Event}       The initial triggering submission event
-     * @param formData {Object}   The object of validated form data with which to update the object
-     * @private
-     */
-    async _updateObject(event, formData) {
+    _replaceHTML(result, content, options) {
+        content.replaceChildren(result);
+    }
 
-        console.log("Updating Object");
+    async _onRender(context, options) {
+        await super._onRender(context, options);
+        this.activateListeners($(this.element));
+    }
 
-        await this.object.update(foundry.utils.expandObject(formData));
-        this.object.sheet.render(true);
+    activateListeners(html) {
+        const stats = ["combat", "instinct", "loyalty", "speed", "armor", "sanity"];
+
+        for (const stat of stats) {
+            const selector = `input[type=checkbox][id="system.stats.${stat}.enabled"]`;
+            html.find(selector).on("click", ev => {
+                this.object.update({
+                    [`system.stats.${stat}.enabled`]: ev.currentTarget.checked
+                });
+            });
+        }
+    }
+
+    async _onSubmitForm(formConfig, event) {
+        const formData = new foundry.applications.ux.FormDataExtended(event.currentTarget);
+        await this.object.update(foundry.utils.expandObject(formData.object));
+        this.object.sheet.render({ force: true });
     }
 }

@@ -47,7 +47,7 @@ export async function createCharacter(options, additionalWeaponsItems) {
         }
     }
 
-    await characterActor.sheet.render(true)
+    await characterActor.sheet.render({ force: true })
 
     const highestAttrValue = getHighestAttrValue(characterStats.system.stats);
     if (highestAttrValue <= TAKE_BOTH_ADDITIONAL_ITEMS && options.items && options.background) {

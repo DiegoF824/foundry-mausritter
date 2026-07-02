@@ -53,27 +53,28 @@ Hooks.once('init', async function () {
   }
   
   // Register sheet application classes
-  Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  const { DocumentSheetConfig } = foundry.applications.apps;
+  DocumentSheetConfig.unregisterSheet(Actor, "core", foundry.applications.sheets.ActorSheetV2);
 
-  Actors.registerSheet("mausritter", MausritterActorSheet, {
+  DocumentSheetConfig.registerSheet(Actor, "mausritter", MausritterActorSheet, {
     types: ['character'],
     makeDefault: true
   });
-  Actors.registerSheet("mausritter", MausritterHirelingSheet, {
+  DocumentSheetConfig.registerSheet(Actor, "mausritter", MausritterHirelingSheet, {
     types: ['hireling'],
     makeDefault: false
   });
-  Actors.registerSheet("mausritter", MausritterCreatureSheet, {
+  DocumentSheetConfig.registerSheet(Actor, "mausritter", MausritterCreatureSheet, {
     types: ['creature'],
     makeDefault: false
   });
-  Actors.registerSheet("mausritter", MausritterStorageSheet, {
+  DocumentSheetConfig.registerSheet(Actor, "mausritter", MausritterStorageSheet, {
     types: ['storage'],
     makeDefault: false
   });
 
-  Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
-  Items.registerSheet("mausritter", MausritterItemSheet, { makeDefault: true });
+  DocumentSheetConfig.unregisterSheet(Item, "core", foundry.applications.sheets.ItemSheetV2);
+  DocumentSheetConfig.registerSheet(Item, "mausritter", MausritterItemSheet, { makeDefault: true });
 
   // If you need to add Handlebars helpers, here are a few useful examples:
   Handlebars.registerHelper('concat', function () {

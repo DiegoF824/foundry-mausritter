@@ -1,18 +1,18 @@
 /**
- * Extend the basic ItemSheet with some very simple modifications
- * @extends {ItemSheet}
+ * Extend the basic ItemSheetV2 with some very simple modifications
+ * @extends {ItemSheetV2}
  */
-export class MausritterItemSheet extends foundry.appv1.sheets.ItemSheet {
+import { MausritterItemSheetV2 } from "../sheet-v2-helpers.js";
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["mausritter", "sheet", "item"],
+export class MausritterItemSheet extends MausritterItemSheetV2 {
+  static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
+    classes: ["mausritter", "sheet", "item"],
+    initialTab: "description",
+    position: {
       width: 520,
-      height: 480,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
-    });
-  }
+      height: 480
+    }
+  }, { inplace: false });
 
   /** @override */
   get template() {
@@ -29,9 +29,8 @@ export class MausritterItemSheet extends foundry.appv1.sheets.ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
-    const data = super.getData();
-    return data.data;
+  getData(data) {
+    return super.getData(data).data;
   }
 
   // /**
@@ -70,8 +69,8 @@ export class MausritterItemSheet extends foundry.appv1.sheets.ItemSheet {
   /** @override */
   setPosition(options = {}) {
     const position = super.setPosition(options);
-    const sheetBody = this.element.find(".sheet-body");
-    const bodyHeight = position.height - 192;
+    const sheetBody = $(this.element).find(".sheet-body");
+    const bodyHeight = this.position.height - 192;
     sheetBody.css("height", bodyHeight);
     return position;
   }
@@ -80,11 +79,8 @@ export class MausritterItemSheet extends foundry.appv1.sheets.ItemSheet {
 
   /** @override */
   activateListeners(html) {
-    super.activateListeners(html);
-    const data = super.getData();
-
     // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return;
+    if (!this.isEditable) return;
 
     // if(data.data.pips == null){
     //   data.data.pips = {};

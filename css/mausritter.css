@@ -1739,11 +1739,12 @@
   --maus-chat-bg: #fff;
   --maus-damage: rgb(117, 0, 0);
   --maus-card-image-filter: none;
+  --maus-card-image-blend: normal;
   --maus-card-image-opacity: 1;
 }
 
-:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:not(.theme-light):not([data-theme="light"]):not([data-application-theme="light"]),
-.application.mausritter:is(.theme-dark, [data-theme="dark"], [data-application-theme="dark"]) {
+:is(html.theme-dark, body.theme-dark, .theme-dark, [data-theme="dark"]) .application.mausritter:not(.theme-light):not(.maus-theme-light):not([data-theme="light"]):not([data-application-theme="light"]):not([data-maus-theme="light"]),
+.application.mausritter:is(.theme-dark, .maus-theme-dark, [data-theme="dark"], [data-application-theme="dark"], [data-maus-theme="dark"]) {
   --maus-bg: #191715;
   --maus-panel: #24211d;
   --maus-panel-muted: #37312a;
@@ -1757,8 +1758,9 @@
   --maus-field-bg: #24211d;
   --maus-chat-bg: #191715;
   --maus-damage: #ff7f6d;
-  --maus-card-image-filter: none;
-  --maus-card-image-opacity: 0.9;
+  --maus-card-image-filter: invert(1) sepia(0.22) saturate(0.8) brightness(1.12);
+  --maus-card-image-blend: screen;
+  --maus-card-image-opacity: 0.84;
 }
 
 .application.mausritter .window-content,
@@ -1891,6 +1893,7 @@
 .application.mausritter .item-card-image {
   background: transparent !important;
   filter: var(--maus-card-image-filter) !important;
+  mix-blend-mode: var(--maus-card-image-blend) !important;
   opacity: var(--maus-card-image-opacity) !important;
 }
 
